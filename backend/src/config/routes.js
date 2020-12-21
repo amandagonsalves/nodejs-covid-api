@@ -1,11 +1,11 @@
 const express = require('express');
-const { fetchData } = require('../api/data');
+const { insertData } = require('../api/dataCases');
 
 module.exports = (server) => {
     const router = express.Router();
-    server.use('/api', router);
+    server.use('/api/cases', router);
 
-    router.get('/', async (req, res) => {
-      res.send(await fetchData());
+    router.get('/all', async (req, res) => {
+      res.send(await insertData());
     });
-};
+}
