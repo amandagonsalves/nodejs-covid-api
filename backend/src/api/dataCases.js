@@ -3,12 +3,10 @@ const unirest = require('unirest');
 const cases = require('./case');
 const Case = require('./case');
 
-const getData = (reportDate) => new Promise((resolve, reject) => {
+const getData = () => new Promise((resolve, reject) => {
   const req = unirest("GET", "https://who-covid-19-data.p.rapidapi.com/api/data");
 
-  req.query({
-    reportDate
-  });
+  req.query({});
 
   req.headers({
     "x-rapidapi-key": "d10a9ed3aemsha8570896324bf28p13ce07jsnb6db924b4df7",
