@@ -1,12 +1,11 @@
 const moment = require('moment');
 const unirest = require('unirest');
-const cases = require('./case');
 const Case = require('./case');
 
-const getData = () => new Promise((resolve, reject) => {
+const getData = (query = {}) => new Promise((resolve, reject) => {
   const req = unirest("GET", "https://who-covid-19-data.p.rapidapi.com/api/data");
 
-  req.query({});
+  req.query(query);
 
   req.headers({
     "x-rapidapi-key": "d10a9ed3aemsha8570896324bf28p13ce07jsnb6db924b4df7",
@@ -19,28 +18,28 @@ const getData = () => new Promise((resolve, reject) => {
       return reject(res.error);
     }
 
-    resolve(res.body);
+    resolve(res.body.map(document => ({ body: { ...document, reportDate: moment.utc(document.reportDate).format('YYYY-MM-DD') } })));
   });
 });
 
 const saveCase = (body) => {
   const newCase = new Case({ body });
 
-  newCase.save();
+  return newCase.save();
 }
 
-const insertData = async () => {
+const insertAllData = async () => {
   const dataJSON = await getData();
+  console.log(dataJSON)
 
   for (let data of dataJSON) {
-    const search = await cases.find({ body: { $exists: true, $eq: data } }).countDocuments();
+    const search = await Case.find({ 'body.name': data.body.name, 'body.reportDate': data.body.reportDate }).countDocuments();
 
     if (search === 0) {
-      saveCase(data);
+      await saveCase(data);
     }
-
-    return false;
   }
+  return false;
 }
 
 const createDatesArray = (date, days) => {
@@ -53,7 +52,7 @@ const createDatesArray = (date, days) => {
   let end = new Date(last);
 
   while (start < end) {
-    dateArr.push(moment(start).format('yyyy-mm-ddThh:mm:ss+zzzzzz'));
+    dateArr.push(moment(start).format('YYYY-MM-DD'));
 
     let newDate = start.setDate(start.getDate() + 1);
     start = new Date(newDate);
@@ -62,14 +61,28 @@ const createDatesArray = (date, days) => {
   return dateArr;
 }
 
-const getDataFromTheLastDays = async (country, date) => {
-  const getDataByCountry = await cases.find({ 'body.name': country , 'body.reportDate': date });
-  
-  console.log(getDataByCountry);
+const getDataByDateAndCountry = (date, days, country) => {
+  const dateArray = createDatesArray(date, days);
+
+  const promises = dateArray.map(async (dateItem) => {
+    const documents = await Case.find({ 'body.name': country, 'body.reportDate': dateItem });
+
+    if (documents.length) {
+      return documents;
+    }
+
+    return Case.insertMany(await getData({dateItem, country}));
+  });
+
+  return Promise.all(promises);
 }
 
-getDataFromTheLastDays('Saint Pierre and Miquelon', '2020-08-16T00:00:00.000Z');
+const getDataFromTheLastDays = async (country, date) => {
+  const data = await getDataByDateAndCountry(date, 2, country);
+}
+
+// getDataFromTheLastDays('Brazil', '2020-08-16')
 
 module.exports = {
-  insertData
+  insertAllData
 };  
