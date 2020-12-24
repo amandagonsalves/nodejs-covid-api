@@ -39,7 +39,7 @@ const getAllData = async () => {
     }
   } 
 
-  return false;
+  return await Case.find();
 }
 
 const createDatesArray = (date, days) => {
@@ -59,7 +59,6 @@ const createDatesArray = (date, days) => {
 
 const getDataByDateAndCountry = (date, days, country) => {
   const dateArray = createDatesArray(date, days);
-  console.log(dateArray)
 
   const promises = dateArray.map(async (dateItem) => {
     const documents = await Case.find({ 'body.name': country, 'body.reportDate': dateItem });
@@ -75,7 +74,7 @@ const getDataByDateAndCountry = (date, days, country) => {
 }
 
 const getDataFromTheLastDays = async (country, date) => {
-  const data = await getDataByDateAndCountry(date, 2, country);
+  await getDataByDateAndCountry(date, 8, country);
 }
 
 module.exports = {
