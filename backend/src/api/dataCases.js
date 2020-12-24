@@ -28,34 +28,30 @@ const saveCase = (body) => {
   return newCase.save();
 }
 
-const insertAllData = async () => {
+const getAllData = async () => {
   const dataJSON = await getData();
-  console.log(dataJSON)
 
   for (let data of dataJSON) {
     const search = await Case.find({ 'body.name': data.body.name, 'body.reportDate': data.body.reportDate }).countDocuments();
 
     if (search === 0) {
-      await saveCase(data);
+      await saveCase(data.body);
     }
-  }
+  } 
+
   return false;
 }
 
 const createDatesArray = (date, days) => {
   const dateArr = [];
 
-  let prevDate = moment(date).subtract(days, 'days').format('MM-DD-YYYY');
-  let last = moment(date).format('MM-DD-YYYY');
-
-  let start = new Date(prevDate);
-  let end = new Date(last);
+  let start = new Date(moment(date).subtract(days, 'days'));
+  let end = new Date(moment(date));
 
   while (start < end) {
     dateArr.push(moment(start).format('YYYY-MM-DD'));
 
-    let newDate = start.setDate(start.getDate() + 1);
-    start = new Date(newDate);
+    start = new Date(start.setDate(start.getDate() + 1));
   }
 
   return dateArr;
@@ -63,6 +59,7 @@ const createDatesArray = (date, days) => {
 
 const getDataByDateAndCountry = (date, days, country) => {
   const dateArray = createDatesArray(date, days);
+  console.log(dateArray)
 
   const promises = dateArray.map(async (dateItem) => {
     const documents = await Case.find({ 'body.name': country, 'body.reportDate': dateItem });
@@ -71,7 +68,7 @@ const getDataByDateAndCountry = (date, days, country) => {
       return documents;
     }
 
-    return Case.insertMany(await getData({dateItem, country}));
+    return Case.insertMany(await getData({ reportDate: dateItem, name: country }));
   });
 
   return Promise.all(promises);
@@ -81,8 +78,7 @@ const getDataFromTheLastDays = async (country, date) => {
   const data = await getDataByDateAndCountry(date, 2, country);
 }
 
-// getDataFromTheLastDays('Brazil', '2020-08-16')
-
 module.exports = {
-  insertAllData
+  getAllData,
+  getDataFromTheLastDays
 };  
