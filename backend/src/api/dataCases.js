@@ -37,7 +37,7 @@ const getAllData = async () => {
     if (search === 0) {
       await saveCase(data.body);
     }
-  } 
+  }
 
   return await Case.find();
 }
@@ -74,7 +74,9 @@ const getDataByDateAndCountry = (date, days, country) => {
 }
 
 const getDataFromTheLastDays = async (country, date) => {
-  await getDataByDateAndCountry(date, 8, country);
+  const data = await getDataByDateAndCountry(date, 3, country);
+
+  return data;
 }
 
 module.exports = {
