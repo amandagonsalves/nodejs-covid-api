@@ -61,20 +61,33 @@ const getDataByDateAndCountry = (date, days, country) => {
   const dateArray = createDatesArray(date, days);
 
   const promises = dateArray.map(async (dateItem) => {
-    const documents = await Case.find({ 'body.name': country, 'body.reportDate': dateItem });
+    const [document] = await Case.find({ 'body.name': country, 'body.reportDate': dateItem });
 
-    if (documents.length) {
-      return documents;
+    if (document) {
+      return document;
     }
 
-    return Case.insertMany(await getData({ reportDate: dateItem, name: country }));
+    const [data] = await getData({ reportDate: dateItem, name: country });
+
+    return Case.create(data);
   });
 
-  return Promise.all(promises);
+  return Promise.all(promises).then(cases => {
+    const newCases = cases.map((doc, index) => {
+      return cases[index].body.newCases;
+    });
+    
+    const totalCases = newCases.reduce((acc, doc) => acc + doc, 0);
+
+    return {
+      cases,
+      totalCases
+    }
+  });
 }
 
 const getDataFromTheLastDays = async (country, date) => {
-  const data = await getDataByDateAndCountry(date, 3, country);
+  const data = await getDataByDateAndCountry(date, 10, country);
 
   return data;
 }
