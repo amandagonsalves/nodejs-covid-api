@@ -1,10 +1,10 @@
-import React from 'react';
-import Button from '../components/Button';
+import React from "react";
+import { Link } from "react-router-dom";
 
 export default props => {
   return (
     <div>
-      <Button className="" buttonValue="Todos os casos" onClick={props.onClick} />
+      <Link to="/filter">Filtrar resultados</Link>
     </div>
   )
 }

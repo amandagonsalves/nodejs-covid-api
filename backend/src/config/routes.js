@@ -6,10 +6,10 @@ module.exports = (server) => {
     server.use('/api/cases', router);
 
     router.get('/all', async (req, res) => {
-      res.send(await getAllData());
+      res.json(await getAllData());
     });
 
     router.get('/last-days', async (req, res) => {
-      res.send(await getDataFromTheLastDays('Brazil', '2020-08-16'));
+      res.json(await getDataFromTheLastDays('Brazil', '2020-08-16'));
     });
 }

@@ -39,7 +39,24 @@ const getAllData = async () => {
     }
   }
 
-  return await Case.find();
+  const allCases = await Case.find();
+
+  const cases = allCases.map((doc, index) => {
+    return allCases[index].body.cases;
+  });
+
+  const deaths = allCases.map((doc, index) => {
+    return allCases[index].body.deaths;
+  });
+  
+  const totalCases = cases.reduce((acc, doc) => acc + doc, 0);
+  const totalDeaths = deaths.reduce((acc, doc) => acc + doc, 0);
+
+  return {
+    allCases,
+    totalCases,
+    totalDeaths
+  }
 }
 
 const createDatesArray = (date, days) => {
@@ -87,7 +104,7 @@ const getDataByDateAndCountry = (date, days, country) => {
 }
 
 const getDataFromTheLastDays = async (country, date) => {
-  const data = await getDataByDateAndCountry(date, 10, country);
+  const data = await getDataByDateAndCountry(date, 2, country);
 
   return data;
 }

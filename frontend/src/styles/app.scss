@@ -1,1 +1,6 @@
 @import './common/global.scss';
+@import './components/global.scss';
+
+body {
+  background-color: $c-purple-2;
+}
