@@ -1,0 +1,13 @@
+.form {
+
+  &__fieldset {
+    border: none;
+  }
+
+  &__input-block {
+
+    &-input {
+      padding: 1rem;
+    }
+  }
+}

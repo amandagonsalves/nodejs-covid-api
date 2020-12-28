@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 
 export default props => {
   return (
-    <div>
-      <Link to="/filter">Filtrar resultados</Link>
+    <div className="header">
+      <h1>LOGO</h1>
+      <Link to="/filter" className="btn btn-filter">Filtrar resultados</Link>
     </div>
   )
 }

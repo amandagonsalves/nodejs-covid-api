@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import FilterForm from "./FilterForm";
 
 const lastDaysURL = "http://localhost:3001/api/cases/last-days";
 
@@ -18,7 +19,7 @@ export default class LastDays extends React.Component {
   render() {
     return (
       <div>
-        <h1>ola last days</h1>
+        <FilterForm />
       </div>
     )
   }
