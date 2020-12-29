@@ -22,10 +22,8 @@ const getData = (query = {}) => new Promise((resolve, reject) => {
   });
 });
 
-const saveCase = (body) => {
-  const newCase = new Case({ body });
-
-  return newCase.save();
+const getNumbers = (arr) => {
+  return arr.reduce((acc, doc) => acc + doc, 0);
 }
 
 const getAllData = async () => {
@@ -39,8 +37,8 @@ const getAllData = async () => {
     return doc.body.deaths;
   });
   
-  const totalCases = cases.reduce((acc, doc) => acc + doc, 0);
-  const totalDeaths = deaths.reduce((acc, doc) => acc + doc, 0);
+  const totalCases = getNumbers(cases);
+  const totalDeaths = getNumbers(deaths);
 
   return {
     allCases: dataJSON,
@@ -48,6 +46,7 @@ const getAllData = async () => {
     totalDeaths
   }
 }
+
 
 const createDatesArray = (date, days) => {
   const dateArr = [];
@@ -81,10 +80,10 @@ const getDataByDateAndCountry = (date, days, country) => {
 
   return Promise.all(promises).then(cases => {
     const newCases = cases.map((doc, index) => {
-      return cases[index].body.newCases;
+      return doc.body.newCases;
     });
     
-    const totalCases = newCases.reduce((acc, doc) => acc + doc, 0);
+    const totalCases = getNumbers(newCases);
 
     return {
       cases,
