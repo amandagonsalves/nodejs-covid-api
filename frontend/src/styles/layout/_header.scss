@@ -2,5 +2,34 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 5rem;
+  max-width: 2100px;
+  margin: 0 auto;
+  padding: .9rem;
+
+  &__logo {
+    height: 5rem;
+  }
+
+  &__form-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 2100px;
+    margin: 0 auto;
+    padding: .9rem;
+  
+    &__logo {
+      height: 5rem;
+    }
+  }
 }

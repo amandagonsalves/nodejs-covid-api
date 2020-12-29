@@ -9,7 +9,7 @@ export default class Cases extends React.Component {
   constructor() {
     super();
 
-    this.state = { allData: [], lastDaysData: [] };
+    this.state = { allData: { allCases: [], totalCases: ''} };
     this.refresh();
   }
 

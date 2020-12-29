@@ -5,9 +5,32 @@
   }
 
   &__input-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 
     &-input {
-      padding: 1rem;
+      border-radius: 2rem;
+      height: 3rem;
     }
   }
+}
+
+@media screen and (max-width: 600px) {
+  .form {
+
+    &__fieldset {
+      border: none;
+    }
+  
+    &__input-block {
+      display: flex;
+      flex-direction: column;
+  
+      &-input {
+        border-radius: 2rem;
+        height: 3rem;
+      }
+    }
+  }  
 }

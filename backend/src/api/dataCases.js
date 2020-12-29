@@ -30,30 +30,20 @@ const saveCase = (body) => {
 
 const getAllData = async () => {
   const dataJSON = await getData();
-
-  for (let data of dataJSON) {
-    const search = await Case.find({ 'body.name': data.body.name, 'body.reportDate': data.body.reportDate }).countDocuments();
-
-    if (search === 0) {
-      await saveCase(data.body);
-    }
-  }
-
-  const allCases = await Case.find();
-
-  const cases = allCases.map((doc, index) => {
-    return allCases[index].body.cases;
+  
+  const cases = dataJSON.map((doc, index) => {
+    return doc.body.cases;
   });
 
-  const deaths = allCases.map((doc, index) => {
-    return allCases[index].body.deaths;
+  const deaths = dataJSON.map((doc, index) => {
+    return doc.body.deaths;
   });
   
   const totalCases = cases.reduce((acc, doc) => acc + doc, 0);
   const totalDeaths = deaths.reduce((acc, doc) => acc + doc, 0);
 
   return {
-    allCases,
+    allCases: dataJSON,
     totalCases,
     totalDeaths
   }
