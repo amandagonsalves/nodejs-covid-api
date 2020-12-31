@@ -1,3 +1,21 @@
-// .chart {
-//   width: 50%;
-// }
+.container__charts {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2rem 1rem;
+
+  &-chart {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container__charts {
+    display: flex;
+    flex-direction: column;
+
+    &-chart {
+      width: initial;
+    }
+  }
+}

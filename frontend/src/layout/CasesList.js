@@ -1,6 +1,7 @@
 import React from "react";
 import DataCards from "../components/DataCards";
-import MyChart from "./Chart";
+import BarChart from "./BarChart";
+import MapChart from "./MapChart";
 
 export default props => {
   const data = props.data;
@@ -8,31 +9,16 @@ export default props => {
   const totalCases = data.totalCases;
   const totalDeaths = data.totalDeaths;
 
-  // const List = () => {
-  //   return list.map(item => {
-  //     return <ul key={item._id}>
-  //       <li>{item.body.name}</li>
-  //       <li>{item.body.cases}</li>
-  //       <li>{item.body.newCases}</li>
-  //     </ul>
-  //   });
-  // }
-
-  const countries = () => {
-    const names = [];
-
-    list.map(item => {
-      return names.push(item.body.name);
-    });
-
-    return names;
-  }
- 
   return (
-    <div>
-      {/* <List /> */}
-      <DataCards totalCases={totalCases} totalDeaths={totalDeaths} />
-      <MyChart countries={countries()} cases={[1,9,4]} />
+    <div className="container">
+      <div className="container__charts">
+        <BarChart data={list} label="Cases" field="cases" />
+        <BarChart data={list} label="Deaths" field="deaths" />
+      </div>
+
+      <div>
+        <DataCards totalCases={totalCases} totalDeaths={totalDeaths} />
+      </div>
     </div>
   );
 }

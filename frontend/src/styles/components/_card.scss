@@ -1,12 +1,12 @@
-.cards {
+.container__cards {
   display: grid;
   gap: 2rem;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr;
   margin: 2rem auto;
   max-width: 2100px;
   padding: 0 .9rem;
 
-  &__card {
+  &-card {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,12 +37,12 @@
 }
 
 @media screen and (max-width: 600px) {
-  .cards {
+  .container__cards {
     display: grid;
-    gap: 2.4rem;
-    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    grid-template-columns: repeat(2, 1fr);
 
-    &__card {
+    &-card {
       width: 100%;
   
       &-data {

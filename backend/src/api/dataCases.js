@@ -47,7 +47,6 @@ const getAllData = async () => {
   }
 }
 
-
 const createDatesArray = (date, days) => {
   const dateArr = [];
 

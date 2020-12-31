@@ -10,7 +10,7 @@ export default props => {
   return (
     <Router history={history}>
       <Switch>
-        <Route path='/filter' component={LastDays} />
+        <Route path='/results' component={LastDays} />
         <Route exact path='/' component={Cases} />
         <Redirect from='*' to='/' />
       </Switch>

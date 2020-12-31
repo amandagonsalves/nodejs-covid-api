@@ -12,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@amcharts/amcharts4": "^4.10.13",
+    "@amcharts/amcharts4-geodata": "^4.1.19",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",

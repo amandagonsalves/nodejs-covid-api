@@ -1,17 +1,27 @@
 .form {
+  flex: 1;
 
   &__fieldset {
     border: none;
   }
 
-  &__input-block {
+  &__form-block {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    flex: 1;
 
-    &-input {
+    &-input, &-select {
+      border: 1px solid $c-gray-2;
       border-radius: 2rem;
-      height: 3rem;
+      color: $c-gray-2;
+      height: 50px;
+      margin: 0 .3em;
+      padding: 0 .6rem;
+    }
+
+    &-select {
+      background-color: $c-white;
     }
   }
 }
@@ -23,14 +33,16 @@
       border: none;
     }
   
-    &__input-block {
+    &__form-block {
       display: flex;
       flex-direction: column;
   
-      &-input {
-        border-radius: 2rem;
+      &-input, &-select {
         height: 3rem;
+        margin: 1rem 0;
+        width: 100%;
       }
+      
     }
   }  
 }

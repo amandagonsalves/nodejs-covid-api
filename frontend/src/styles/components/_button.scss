@@ -2,17 +2,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   transition: .3s;
   
   &-filter {
     background-color: $c-yellow-1;
     border-radius: 2rem;
-    height: 3rem;
-    padding: .1rem;
-    width: 100%;
+    font-size: .9rem;
+    height: 50px;
+    margin: 0 .3em;
+    padding: 0 .8rem;
 
     &:hover {
-      background-color: $c-gray-1;
+      background-color: $c-yellow-2;
     }
   }
 }
@@ -21,7 +23,7 @@
   .btn {
 
     &-filter {
-      height: 5rem;
+      height: 60px;
       width: 90%;
     }
   }
