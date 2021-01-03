@@ -2,20 +2,37 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 2rem 1rem;
 
-  &-chart {
-    width: 45%;
+  &:nth-child(0n+1) {
+    background-color: $c-white;
+    border-radius: 2rem;
+    box-shadow: 1px 1px 7px #d8d8d8;
   }
+}
+
+#chartcases, #chartdeaths {
+  height: 70vh;
+  width: 100%;
+}
+
+#mapchart {
+  height: 45vh;
+  width: 100%;
 }
 
 @media screen and (max-width: 600px) {
   .container__charts {
     display: flex;
     flex-direction: column;
+    margin: 2rem 0;
 
     &-chart {
       width: initial;
     }
+  }
+
+  #chartcases, #chartdeaths {
+    height: 45vh;
+    width: 100%;
   }
 }

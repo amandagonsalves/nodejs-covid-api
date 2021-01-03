@@ -10,6 +10,11 @@
     height: 5rem;
   }
 
+  &__title {
+    font-family: 'Poppins', 'sans-serif';
+    color: $c-red-2;
+  }
+
   &__form-block {
     display: flex;
     align-items: center;

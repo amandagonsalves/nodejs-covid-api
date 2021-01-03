@@ -5,6 +5,7 @@
   margin: 2rem auto;
   max-width: 2100px;
   padding: 0 .9rem;
+  width: 35%;
 
   &-card {
     display: flex;
@@ -14,22 +15,25 @@
     width: 100%;
 
     &-data {
-      background-color: $c-purple-1;
+      background-color: $c-white;
+      border: 2px solid $c-white;
+      border-radius: 1.2rem;
+      box-shadow: 1px 1px 6px $c-gray-3;
       border-radius: 1.2rem;
       font-family: 'Poppins', 'sans-serif';
-      height: 6.5rem;
+      height: 8.5rem;
       text-align: center;
   
       p {
-        color: $c-gray-1;
-        font-size: 1.5rem;
+        color: $c-red-3;
+        font-size: 1.9rem;
         font-weight: bold;
         margin: 0.2rem 0;
       }
 
       small {
         color: $c-yellow-1;
-        font-size: .8rem;
+        font-size: 1rem;
         font-weight: bold;
       }
     }
@@ -41,29 +45,14 @@
     display: grid;
     gap: 1.2rem;
     grid-template-columns: repeat(2, 1fr);
+    margin: 0 0 3rem;
+    padding: 0;
+    width: initial;
 
     &-card {
-      width: 100%;
   
       &-data {
-        background-color: $c-purple-1;
-        border-radius: 1.2rem;
-        font-family: 'Poppins', 'sans-serif';
-        height: 7rem;
-        text-align: center;
-    
-        p {
-          color: $c-gray-1;
-          font-size: 1.5rem;
-          font-weight: bold;
-          margin: 0;
-        }
-  
-        small {
-          color: $c-yellow-1;
-          font-size: .8rem;
-          font-weight: bold;
-        }
+        width: 10rem;
       }
     }
   }

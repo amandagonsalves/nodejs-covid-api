@@ -1,6 +1,7 @@
 const moment = require('moment');
 const unirest = require('unirest');
 const Case = require('./case');
+const { getTotalNumbers, getArr } = require("../../../frontend/src/layout/getData");
 
 const getData = (query = {}) => new Promise((resolve, reject) => {
   const req = unirest("GET", "https://who-covid-19-data.p.rapidapi.com/api/data");
@@ -22,23 +23,14 @@ const getData = (query = {}) => new Promise((resolve, reject) => {
   });
 });
 
-const getNumbers = (arr) => {
-  return arr.reduce((acc, doc) => acc + doc, 0);
-}
-
 const getAllData = async () => {
   const dataJSON = await getData();
   
-  const cases = dataJSON.map((doc, index) => {
-    return doc.body.cases;
-  });
-
-  const deaths = dataJSON.map((doc, index) => {
-    return doc.body.deaths;
-  });
+  const cases = getArr(dataJSON, 'cases');
+  const deaths = getArr(dataJSON, 'deaths');
   
-  const totalCases = getNumbers(cases);
-  const totalDeaths = getNumbers(deaths);
+  const totalCases = getTotalNumbers(cases);
+  const totalDeaths = getTotalNumbers(deaths);
 
   return {
     allCases: dataJSON,
@@ -62,7 +54,7 @@ const createDatesArray = (date, days) => {
   return dateArr;
 }
 
-const getDataByDateAndCountry = (date, days, country) => {
+const getDataByDateAndCountry = (country, days, date) => {
   const dateArray = createDatesArray(date, days);
 
   const promises = dateArray.map(async (dateItem) => {
@@ -71,33 +63,35 @@ const getDataByDateAndCountry = (date, days, country) => {
     if (document) {
       return document;
     }
+    
+    const body = { name: country, reportDate: dateItem };
 
-    const [data] = await getData({ reportDate: dateItem, name: country });
-
-    return Case.create(data);
+    const [data] = await getData(body);
+    
+    return Case.create(data || { body: { ...body, newCases: 0, deaths: 0, transmissionType: 0  } });
   });
 
   return Promise.all(promises).then(cases => {
-    const newCases = cases.map((doc, index) => {
+    const newCases = cases.map(doc => {
       return doc.body.newCases;
     });
     
-    const totalCases = getNumbers(newCases);
+    const deaths = cases.map(doc => {
+      return doc.body.deaths;
+    });;
+
+    const totalDeaths = getTotalNumbers(deaths);
+    const totalCases = getTotalNumbers(newCases);
 
     return {
       cases,
-      totalCases
+      totalCases,
+      totalDeaths
     }
   });
 }
 
-const getDataFromTheLastDays = async (country, date) => {
-  const data = await getDataByDateAndCountry(date, 2, country);
-
-  return data;
-}
-
 module.exports = {
   getAllData,
-  getDataFromTheLastDays
+  getDataByDateAndCountry,
 };  

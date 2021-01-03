@@ -1,26 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import FilterForm from "../components/FilterForm";
+import { useLocation } from 'react-router-dom'
 
-const lastDaysURL = "http://localhost:3001/api/cases/last-days";
-
-export default class LastDays extends React.Component {
-  constructor() {
-    super();
-
-    this.state = { lastDaysData: [] };
-    this.refresh();
-  }
-
-  refresh() {
-    axios.get(lastDaysURL).then(res => console.log(res.data));
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>results</h1>
-      </div>
-    )
-  }
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
 }
+
+const lastDaysURL = "http://localhost:3001/api/cases/last-days/";
+
+export default () => {
+  const query = useQuery();
+  const [lastDays, setLastDays] = useState({
+    cases: [],
+    totalCases: 0,
+    totalDeaths: 0,
+  });
+
+  const country = query.get('country')
+
+  useEffect(() => {
+    const fetch = () => {
+      axios.get(`${lastDaysURL}${country}`, {
+        params: {
+          days: query.get('days'),
+        },
+      }).then(res =>{
+        setLastDays(res.data);
+      });
+    };
+
+    fetch();
+  }, [
+    country,
+  ]);
+
+  return (
+    <div>
+      <h1>results</h1>
+      <pre>{JSON.stringify(lastDays)}</pre>
+    </div>
+  )
+};

@@ -20,7 +20,7 @@ export default class Cases extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header data={this.state.allData} />
         <CasesList data={this.state.allData} />
       </div>
     )

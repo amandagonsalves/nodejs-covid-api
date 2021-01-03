@@ -12,12 +12,13 @@ export default props => {
   return (
     <div className="container">
       <div className="container__charts">
-        <BarChart data={list} label="Cases" field="cases" />
-        <BarChart data={list} label="Deaths" field="deaths" />
+        <BarChart data={list} id="chartcases" titleText="Cases" seriesName="Cases" valueY="cases" field="cases" />
+        <BarChart data={list} id="chartdeaths" titleText="Deaths" seriesName="Deaths" valueY="deaths" field="deaths" />
       </div>
 
-      <div>
+      <div className="container__charts">
         <DataCards totalCases={totalCases} totalDeaths={totalDeaths} />
+        <MapChart data={list} />
       </div>
     </div>
   );

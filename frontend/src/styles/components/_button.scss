@@ -6,15 +6,20 @@
   transition: .3s;
   
   &-filter {
-    background-color: $c-yellow-1;
+    background-color: $c-red-3;
+    border: 2px solid $c-red-3;
     border-radius: 2rem;
+    color: $c-gray-1;
     font-size: .9rem;
+    font-weight: bold;
     height: 50px;
     margin: 0 .3em;
     padding: 0 .8rem;
+    width: 8rem;
 
     &:hover {
-      background-color: $c-yellow-2;
+      background-color: rgba(0, 0, 0, 0);
+      color: $c-red-3;
     }
   }
 }

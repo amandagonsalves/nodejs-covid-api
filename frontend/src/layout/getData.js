@@ -2,18 +2,18 @@ const getTotalNumbers = (arr) => {
   return arr.reduce((acc, doc) => acc + doc, 0);
 }
 
-const getRegions = (data) => {
-  const regions = [];
+const getFields = (data, field) => {
+  const fields = [];
 
   data.map(item => {
-    if (regions.includes(item.body.region)) {
+    if (fields.includes(item.body[field])) {
       return false;
     }
 
-    regions.push(item.body.region);
+    fields.push(item.body[field]);
   });
 
-  return regions;
+  return fields;
 }
 
 const values = (data) => {
@@ -27,13 +27,17 @@ const values = (data) => {
   }, {}));
 }
 
+const getArr = (item, field) => {
+  return item.map((doc) => {
+    return doc.body[field];
+  });
+}
+
 const getTotalPerRegion = (data, field) => {
   const totalPerRegion = [];
 
   return values(data).map((item) => {
-    const fieldItem = item.map((doc) => {
-      return doc.body[field];
-    });
+    const fieldItem = getArr(item, field);
 
     totalPerRegion.push(getTotalNumbers(fieldItem));
 
@@ -41,9 +45,23 @@ const getTotalPerRegion = (data, field) => {
   });
 }
 
+const getValues = (list, field, valueY) => {
+  const regions = getFields(list, 'region');
+  const item = getTotalPerRegion(list, field);
+
+  return regions.map((region, index) => {
+    return {
+      region,
+      [valueY]: item[index]
+    }
+  });
+}
+
 module.exports = {
-  getRegions,
+  getFields,
   getTotalNumbers,
   values,
-  getTotalPerRegion
+  getTotalPerRegion,
+  getArr,
+  getValues
 }
