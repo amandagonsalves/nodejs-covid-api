@@ -4,8 +4,8 @@ export default props => {
   const data = props.data;
 
   const renderList = (field) => {
-    return data.map(item => {
-      return <tr className="table__allCases-tr" key={item._id}>
+    return data.map((item, i) => {
+      return <tr className="table__allCases-tr" key={i}>
         <td className="table__allCases-td"><b>{item.body.name}</b></td>
         <td className="table__allCases-td">{item.body[field]}</td>
       </tr>
