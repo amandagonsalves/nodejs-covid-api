@@ -1,6 +1,6 @@
 # challenge-api-covid
 
-In this repository, the backend was built using nodejs and mongodb and the frontend using reactjs. The challenge was to create two or more routes to show API data on the front end, while the second route should show data from the last 15 days in Brazil. These data were collected through [website](https://rapidapi.com/pillious/api/who-covid-19-data).
+In this repository, the backend was built using nodejs and mongodb and the frontend using reactjs. The challenge was to create two or more routes to show API data on the front end, while the second route should show data from the last 15 days in Brazil. These data were collected through this [website](https://rapidapi.com/pillious/api/who-covid-19-data).
 
 ## Installation
 
