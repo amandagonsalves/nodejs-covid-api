@@ -17,15 +17,47 @@ function App(props) {
     chart.projection = new am4maps.projections.Miller();
 
     var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
-
     polygonSeries.useGeodata = true;
 
     var polygonTemplate = polygonSeries.mapPolygons.template;
-    polygonTemplate.tooltipText = "{name}: {cases}";
+    polygonTemplate.tooltipText = "{name}: {value} cases";
     polygonTemplate.fill = am4core.color("#fe4a49");
 
+    polygonSeries.heatRules.push({
+      "property": "fill",
+      "target": polygonTemplate,
+      "min": am4core.color("#FFDC68"),
+      "max": am4core.color("#E2AE00")
+    });
+
     var hs = polygonTemplate.states.create("hover");
-    hs.properties.fill = am4core.color("#b73021");
+    hs.properties.fill = am4core.color("#FFC709");
+
+    chart.homeZoomLevel = 1;
+    chart.homeGeoPoint = {
+      latitude: 20,
+      longitude: 10
+    };
+
+    let heatLegend = chart.createChild(am4maps.HeatLegend);
+    heatLegend.series = polygonSeries;
+    heatLegend.width = am4core.percent(100);
+
+    polygonSeries.mapPolygons.template.events.on("over", function (ev) {
+      if (!isNaN(ev.target.dataItem.value)) {
+        heatLegend.valueAxis.showTooltipAt(ev.target.dataItem.value)
+      }
+      else {
+        heatLegend.valueAxis.hideTooltip();
+      }
+    });
+
+    polygonSeries.mapPolygons.template.events.on("out", function (ev) {
+      heatLegend.valueAxis.hideTooltip();
+    });
+
+    chart.background.fill = am4core.color("#FFF");
+    chart.background.fillOpacity = 1;
 
     const data = chart.geodata.features;
 
@@ -38,7 +70,7 @@ function App(props) {
       const country = item.properties.name;
       const countryName = mapName[country] || country;
       const id = item.properties.id;
-      
+
       for (let i = 0; i < data.length; i++) {
         const {
           name,
@@ -48,12 +80,12 @@ function App(props) {
         if (!name) {
           break;
         }
-     
+
         if (name == countryName) {
           return {
             id,
             name,
-            cases,
+            value: cases,
           };
         }
       }
@@ -61,7 +93,7 @@ function App(props) {
       return {
         id,
         name: countryName,
-        cases: 0,
+        value: 0,
       };
     });
 

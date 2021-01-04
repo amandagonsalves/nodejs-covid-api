@@ -12,7 +12,7 @@
 
   &__title {
     font-family: 'Poppins', 'sans-serif';
-    color: $c-red-2;
+    color: $c-red-3;
   }
 
   &__form-block {
@@ -22,7 +22,7 @@
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .header {
     display: flex;
     flex-direction: column;

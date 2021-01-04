@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import FilterForm from "../components/FilterForm";
-import logo from "../images/logo-covid.png"
+import Form from "../components/Form";
+import logo from "../images/logo.png"
 
 export default props => {
   return (
@@ -9,7 +8,7 @@ export default props => {
       <img src={logo} alt="logo" className="header__logo" />
       <h1 className="header__title">COVID-19 info</h1>
       <div className="header__form-block">
-        <FilterForm data={props.data} />
+        <Form data={props.data} />
       </div>
     </div>
   )

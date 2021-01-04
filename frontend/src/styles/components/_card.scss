@@ -1,11 +1,6 @@
 .container__cards {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: 1fr;
-  margin: 2rem auto;
-  max-width: 2100px;
-  padding: 0 .9rem;
-  width: 35%;
+  display: flex;
+  align-items: center;
 
   &-card {
     display: flex;
@@ -18,12 +13,36 @@
       background-color: $c-white;
       border: 2px solid $c-white;
       border-radius: 1.2rem;
-      box-shadow: 1px 1px 6px $c-gray-3;
+      border-radius: 1.2rem;
+      font-family: 'Poppins', 'sans-serif';
+      height: 25rem;
+      flex: 1;
+  
+      p {
+        color: $c-red-3;
+        font-size: 1.9rem;
+        font-weight: bold;
+        margin: 0.2rem 0;
+      }
+
+      small {
+        color: $c-yellow-1;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+    }
+
+    &-last {
+      background-color: $c-white;
+      border: 2px solid $c-white;
+      border-radius: 1.2rem;
       border-radius: 1.2rem;
       font-family: 'Poppins', 'sans-serif';
       height: 8.5rem;
       text-align: center;
-  
+      max-width: 50%;
+      margin: 0 auto;
+
       p {
         color: $c-red-3;
         font-size: 1.9rem;
@@ -40,19 +59,13 @@
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .container__cards {
-    display: grid;
-    gap: 1.2rem;
-    grid-template-columns: repeat(2, 1fr);
-    margin: 0 0 3rem;
-    padding: 0;
-    width: initial;
 
     &-card {
   
       &-data {
-        width: 10rem;
+        margin: 0 auto;
       }
     }
   }

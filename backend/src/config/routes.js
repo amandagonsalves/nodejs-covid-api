@@ -11,7 +11,7 @@ module.exports = (server) => {
 
     router.get('/last-days/:country', async (req, res) => {
       const country = req.params.country;
-      const days = Number( req.query.days) || 15
+      const days = Number( req.query.days) || 15;
 
       res.json(await getDataByDateAndCountry(country, days, '2020-08-16'));
     });

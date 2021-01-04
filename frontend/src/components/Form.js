@@ -8,8 +8,11 @@ export default props => {
     <form action="/results" className="form">
       <fieldset className="form__fieldset">
         <div className="form__form-block">
-          <Select data={data}/>
-          <input type="number" name="days" id="days" className="form__form-block-input" />
+          <Select data={data} />
+          <div className="form__form-block">
+            <input type="number" name="days" id="days" className="form__form-block-input" />
+            <label className="form__form-block-label">days ago</label> 
+          </div>
         </div>
         <button type="submit" className="btn btn-filter">Search</button>
       </fieldset>

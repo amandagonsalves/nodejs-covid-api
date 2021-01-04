@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from 'react-router-dom'
+import Table from "../components/Table";
+import logo from "../images/logo.png"
+import Card from "../components/Card";
+import LineChart from "../layout/LineChart";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -24,7 +28,7 @@ export default () => {
         params: {
           days: query.get('days'),
         },
-      }).then(res =>{
+      }).then(res => {
         setLastDays(res.data);
       });
     };
@@ -36,8 +40,13 @@ export default () => {
 
   return (
     <div>
-      <h1>results</h1>
-      <pre>{JSON.stringify(lastDays)}</pre>
+      <div className="header">
+        <img src={logo} alt="logo" className="header__logo" />
+        <h1 className="header__title">COVID-19 info</h1>
+      </div>
+      <Table data={lastDays} />
+      <h1 className="container__charts-title">{country}: {lastDays.totalCases} cases in this period</h1>
+      <LineChart data={lastDays} id="linechart" />
     </div>
   )
 };

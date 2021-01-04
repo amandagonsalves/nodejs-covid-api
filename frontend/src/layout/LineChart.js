@@ -4,7 +4,6 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_kelly from "@amcharts/amcharts4/themes/kelly";
 import am4themes_material from "@amcharts/amcharts4/themes/material";
-import { getValues } from './getData';
 
 am4core.useTheme(am4themes_animated);
 am4core.useTheme(am4themes_kelly);
@@ -12,29 +11,43 @@ am4core.useTheme(am4themes_material);
 
 export default props => {
   const chart = useRef(null);
-  const list = props.data;
+  const data = props.data;
+  const list = data.cases;
 
   useLayoutEffect(() => {
     var x = am4core.create(props.id, am4charts.XYChart);
 
-    x.data = getValues(list, props.field, props.valueY, am4core);
+    const allCases = list.map(item => {
+      const cases = item.body.newCases;
+      const days = item.body.reportDate;
+
+      return {
+        cases,
+        days
+      }
+    });
+
+    console.log(allCases)
+
+    x.data = allCases;
 
     var categoryAxis = x.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "region";
-    categoryAxis.title.text = "Region";
+    categoryAxis.dataFields.category = "days";
+    categoryAxis.title.text = "Days";
 
     var valueAxis = x.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.title.text = props.titleText;
+    valueAxis.title.text = "Cases";
 
-    var series = x.series.push(new am4charts.ColumnSeries3D());
-    series.dataFields.valueY = props.valueY;
-    series.dataFields.categoryX = "region";
-    series.name = props.seriesName;
-    series.columns.template.fill = am4core.color(props.color);
+    var series = x.series.push(new am4charts.LineSeries());
+    series.dataFields.valueY = "cases";
+    series.dataFields.categoryX = "days";
+    series.name = "Cases per day";
     series.stroke = am4core.color("#FFF");
 
-    let colorSet = new am4core.ColorSet();
-    
+    series.fill = am4core.color("red");
+    series.stroke = am4core.color("red");
+    series.strokeWidth = 2; 
+
     x.legend = new am4charts.Legend();
     x.cursor = new am4charts.XYCursor();
 
@@ -43,7 +56,7 @@ export default props => {
     x.scrollbarX = scrollbarX;
     x.scrollbarX.thumb.background.fill = am4core.color("#FFF");
     scrollbarX.scrollbarChart.seriesContainer.hide();
-    x.scrollbarX.minHeight = 20;
+    x.scrollbarX.minHeight = 10;
     x.scrollbarX.marginTop = 25;
     x.scrollbarX.marginBottom = 25;
 
@@ -53,7 +66,6 @@ export default props => {
 
     x.paddingRight = 50;
     x.fontSize = 12;
-    x.maxWidth = 500;
 
     chart.current = x;
 

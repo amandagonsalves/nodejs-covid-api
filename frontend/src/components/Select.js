@@ -13,8 +13,7 @@ export default props => {
   }
 
   return (
-    <select name="country" id="country" className="form__form-block-select">
-      <option value="0">Select a country</option>
+    <select name="country" id="country" className="form__form-block-select" required>
       <RenderOption />
     </select>
   )

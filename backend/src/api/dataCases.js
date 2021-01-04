@@ -72,13 +72,8 @@ const getDataByDateAndCountry = (country, days, date) => {
   });
 
   return Promise.all(promises).then(cases => {
-    const newCases = cases.map(doc => {
-      return doc.body.newCases;
-    });
-    
-    const deaths = cases.map(doc => {
-      return doc.body.deaths;
-    });;
+    const newCases = getArr(cases, 'newCases');
+    const deaths = getArr(cases, 'deaths');
 
     const totalDeaths = getTotalNumbers(deaths);
     const totalCases = getTotalNumbers(newCases);

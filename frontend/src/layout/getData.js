@@ -45,7 +45,7 @@ const getTotalPerRegion = (data, field) => {
   });
 }
 
-const getValues = (list, field, valueY) => {
+const getValues = (list, field, valueY, dep) => {
   const regions = getFields(list, 'region');
   const item = getTotalPerRegion(list, field);
 

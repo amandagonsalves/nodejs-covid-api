@@ -3,6 +3,8 @@
 
   &__fieldset {
     border: none;
+    display: flex;
+    align-items: center;
   }
 
   &__form-block {
@@ -20,30 +22,82 @@
       padding: 0 .6rem;
     }
 
+    &-input {
+      max-width: 100px;
+    }
+
     &-select {
       background-color: $c-white;
+    }
+
+    &-label {
+      color: $c-gray-2;
+      font-size: .9rem;
+      margin: 0 1.5rem 0 0;
     }
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .form {
     width: 100%;
 
     &__fieldset {
       border: none;
+      display: flex;
+      flex-direction: column;
     }
   
     &__form-block {
       display: flex;
       flex-direction: column;
+      margin: 2rem 0;
+      width: 100%;
   
       &-input, &-select {
         height: 4rem;
-        margin: 1rem 0;
+        margin: 0;
         width: 100%;
       }
+
+      &-input {
+        max-width: 250px;
+      }
       
+      &-label {
+        margin: .4rem 1.5rem 0 0;
+      }
+    }
+  }  
+}
+
+@media screen and (min-width:600px) and (max-width: 800px) {
+  .form {
+    width: 100%;
+
+    &__fieldset {
+      border: none;
+      display: flex;
+    }
+  
+    &__form-block {
+      display: flex;
+      flex-direction: initial;
+      width: 100%;
+  
+      &-input, &-select {
+        height: 4rem;
+        margin: 0;
+        width: 50%;
+      }
+
+      &-input {
+        max-width: 250px;
+      }
+      
+      &-label {
+        margin: .4rem 1.5rem 0 0;
+      }
     }
   }  
 }
