@@ -17,7 +17,7 @@ export default props => {
     })
   }
   return (
-    <div className="container__table">
+    <div className="container__table  container__table--results">
       <table className="table">
         <thead className="table__thead">
           <tr className="table__tr">

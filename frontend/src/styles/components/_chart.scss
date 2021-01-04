@@ -42,9 +42,16 @@
   padding: 1rem;
 }
 
+.container__line {
+  background-color: $c-white;
+  border-radius: 2rem;
+  box-shadow: 1px 1px 10px $c-gray-1;
+  margin: 2rem;
+  padding: 2rem 0;
+}
+
 #chartcases, #chartdeaths {
   height: 70vh;
-  margin: 2rem;
   width: 100%;
 }
 

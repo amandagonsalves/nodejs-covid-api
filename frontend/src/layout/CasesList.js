@@ -13,14 +13,14 @@ export default props => {
     <div className="container">
 
       <div className="container__charts">
-        <Card className="container__cards-card-data" data={totalCases} cardValue="COVID-19 cases" allCases={list} />
+        <Card className="container__cards-card-data" data={totalCases} cardValue="COVID-19 cases" allCases={list} field="cases" />
 
         <div className="container__map">
           <h1 className="container__charts-title">COVID-19 Affected areas</h1>
           <MapChart data={list} />
         </div>
 
-        <Card className="container__cards-card-data" data={totalDeaths} cardValue="Total deaths" allCases={list} />
+        <Card className="container__cards-card-data" data={totalDeaths} cardValue="Total deaths" allCases={list} field="deaths" />
       </div>
 
       <div className="container__charts container__charts-cl">

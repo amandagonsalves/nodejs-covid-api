@@ -45,8 +45,10 @@ export default () => {
         <h1 className="header__title">COVID-19 info</h1>
       </div>
       <Table data={lastDays} />
-      <h1 className="container__charts-title">{country}: {lastDays.totalCases} cases in this period</h1>
-      <LineChart data={lastDays} id="linechart" />
+      <div className="container__line">
+        <h1 className="container__charts-title container__charts-title--results">{country}: {lastDays.totalCases} cases in this period</h1>
+        <LineChart data={lastDays} id="linechart" />
+      </div>
     </div>
   )
 };

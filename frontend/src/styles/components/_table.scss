@@ -1,6 +1,15 @@
 .container__table {
   margin: 1.2rem 0;
   overflow-y: scroll;
+
+  &--results {
+    background-color: $c-white;
+    border-radius: 2rem;
+    box-shadow: 1px 1px 10px $c-gray-1;
+    margin: 2rem;
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
 }
 
 .container__table::-webkit-scrollbar {
