@@ -64,6 +64,7 @@ function App(props) {
     const mapName = {
       'United States': 'United States of America',
       'Russia': 'Russian Federation',
+      'Democratic Republic of Congo': 'Congo',
     };
 
     const dataCountries = data.map(item => {
